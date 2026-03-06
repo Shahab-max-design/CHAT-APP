@@ -20,13 +20,13 @@ function setupSocket(server) {
             // Welcome message to the user
             socket.emit('systemMessage', {
                 text: 'Welcome to the chat!',
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             });
 
             // Broadcast to everyone else that a new user joined
             socket.broadcast.emit('systemMessage', {
                 text: `${user.username} joined the chat`,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             });
 
             // Send updated users list to all clients
@@ -44,7 +44,7 @@ function setupSocket(server) {
                     userId: user.id,
                     username: user.username,
                     message: messageText,
-                    timestamp: new Date().toLocaleTimeString()
+                    timestamp: new Date().toISOString()
                 };
 
                 // Broadcast the message to all clients
@@ -72,7 +72,7 @@ function setupSocket(server) {
                 // Broadcast that user has left
                 io.emit('systemMessage', {
                     text: `${user.username} left the chat`,
-                    timestamp: new Date().toLocaleTimeString()
+                    timestamp: new Date().toISOString()
                 });
 
                 // Send updated users list to all clients

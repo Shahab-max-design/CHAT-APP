@@ -40,6 +40,18 @@ function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+/**
+ * Converts server timestamp (ISO string) to the user's local time zone.
+ * Fallbacks directly to the string if the server sends legacy string formats.
+ */
+function formatTime(timestamp) {
+    const dateObj = new Date(timestamp);
+    if (isNaN(dateObj.getTime())) {
+        return timestamp; // Fallback for raw strings
+    }
+    return dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
 // Handler: When a chat message arrives
 socket.on('receiveMessage', (message) => {
     const isMyMessage = message.userId === myId;
@@ -51,7 +63,7 @@ socket.on('receiveMessage', (message) => {
     }
 
     messageEl.innerHTML = `
-    <div class="message-meta">${message.username} • ${message.timestamp}</div>
+    <div class="message-meta">${message.username} • ${formatTime(message.timestamp)}</div>
     <div class="message-content">${message.message}</div>
   `;
 
@@ -63,7 +75,7 @@ socket.on('receiveMessage', (message) => {
 socket.on('systemMessage', (message) => {
     const messageEl = document.createElement('div');
     messageEl.classList.add('system-message');
-    messageEl.textContent = `${message.text} (${message.timestamp})`;
+    messageEl.textContent = `${message.text} (${formatTime(message.timestamp)})`;
 
     messagesContainer.appendChild(messageEl);
     scrollToBottom();
