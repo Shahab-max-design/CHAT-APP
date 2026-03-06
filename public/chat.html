@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Chat | App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="chat-container">
+        <!-- Sidebar: Online Users -->
+        <div class="sidebar">
+            <h2>Online Users</h2>
+            <ul id="users-list">
+                <!-- Users will be injected here -->
+            </ul>
+        </div>
+
+        <!-- Main Chat Area -->
+        <div class="main-chat">
+            <div class="chat-header">
+                <h2>Live Chat</h2>
+                <a href="index.html" class="leave-btn">Leave</a>
+            </div>
+
+            <!-- Messages List -->
+            <div id="messages" class="messages">
+                <!-- System and user messages appear here -->
+            </div>
+
+            <!-- Typing Indicator -->
+            <div id="typing-indicator" class="typing-indicator"></div>
+
+            <!-- Message Form -->
+            <form id="message-form" class="message-form">
+                <input id="message-input" type="text" placeholder="Type a message..." required autocomplete="off">
+                <button class="btn send-btn" type="submit">Send</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Socket.IO Client Script (served automatically by the server) -->
+    <script src="/socket.io/socket.io.js"></script>
+    <!-- Application Client Logic -->
+    <script src="client.js"></script>
+</body>
+
+</html>
