@@ -54,6 +54,23 @@ function setupSocket(server) {
             if (callback) callback();
         });
 
+        // Handle incoming voice messages
+        socket.on('sendVoiceMessage', (audioData) => {
+            const user = getUser(socket.id);
+
+            if (user) {
+                const message = {
+                    userId: user.id,
+                    username: user.username,
+                    audioData: audioData, // Base64 chunk
+                    timestamp: new Date().toISOString()
+                };
+
+                // Broadcast the voice message to all clients
+                io.emit('receiveVoiceMessage', message);
+            }
+        });
+
         // Handle typing indicator
         socket.on('typing', () => {
             const user = getUser(socket.id);

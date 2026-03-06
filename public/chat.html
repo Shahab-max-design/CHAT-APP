@@ -35,7 +35,10 @@
 
             <!-- Message Form -->
             <form id="message-form" class="message-form">
-                <input id="message-input" type="text" placeholder="Type a message..." required autocomplete="off">
+                <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off">
+                <span id="recording-timer" class="recording-timer" style="display: none;">00:00</span>
+                <button type="button" id="record-btn" class="btn record-btn"
+                    title="Click to start/stop recording">🎤</button>
                 <button class="btn send-btn" type="submit">Send</button>
             </form>
         </div>
