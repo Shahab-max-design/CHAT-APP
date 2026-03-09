@@ -59,39 +59,17 @@
             <div class="chat-footer">
                 <!-- Message Input -->
                 <form id="message-form" class="message-form">
-                    <button 
-                        id="voice-message-btn" 
-                        type="button" 
-                        class="btn-voice-message"
-                        title="Press & hold to record voice message"
-                        aria-label="Record voice message"
-                    >
+                    <button id="voice-message-btn" type="button" class="btn-voice-message"
+                        title="Press & hold to record voice message" aria-label="Record voice message">
                         <span class="voice-msg-icon">🎙️</span>
                     </button>
-                    <input 
-                        id="message-input" 
-                        type="text" 
-                        placeholder="Type a message..." 
-                        required 
-                        autocomplete="off"
-                        class="message-input"
-                    >
+                    <input id="message-input" type="text" placeholder="Type a message..." required autocomplete="off"
+                        class="message-input">
                     <button class="btn-send" type="submit" aria-label="Send message">
                         <span>📤</span>
                     </button>
                 </form>
 
-<<<<<<< Updated upstream
-            <!-- Message Form -->
-            <form id="message-form" class="message-form">
-                <input id="message-input" type="text" placeholder="Type a message..." autocomplete="off">
-                <span id="recording-timer" class="recording-timer" style="display: none;">00:00</span>
-                <button type="button" id="record-btn" class="btn record-btn"
-                    title="Click to start/stop recording">🎤</button>
-                <button class="btn send-btn" type="submit">Send</button>
-            </form>
-        </div>
-=======
                 <!-- Voice Recording Indicator -->
                 <div id="recording-indicator" class="recording-indicator hidden">
                     <div class="recording-waveform">
@@ -103,7 +81,6 @@
                 </div>
             </div>
         </main>
->>>>>>> Stashed changes
     </div>
 
     <!-- Socket.IO Client Script -->
