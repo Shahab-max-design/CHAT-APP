@@ -3,18 +3,34 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Real-Time Chat | Login</title>
+  <title>Chat App | Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="centered-body">
-  <div class="login-container">
-    <h1>Join Chat</h1>
-    <form action="chat.html" class="login-form">
-      <div class="form-group">
-        <input type="text" name="username" placeholder="Enter your username..." required autocomplete="off" autofocus>
+<body class="light-mode">
+  <div class="login-wrapper">
+    <div class="login-container">
+      <div class="login-header">
+        <h1>Welcome to Chat</h1>
+        <p>Connect with your friends in real-time</p>
       </div>
-      <button type="submit" class="btn">Join Chat</button>
-    </form>
+      <form action="chat.html" class="login-form">
+        <div class="form-group">
+          <input 
+            type="text" 
+            name="username" 
+            placeholder="Enter your username..." 
+            required 
+            autocomplete="off" 
+            autofocus
+            class="input-field"
+          >
+        </div>
+        <button type="submit" class="btn-primary">Join Chat</button>
+      </form>
+      <div class="login-footer">
+        <p>Start chatting instantly with secure, end-to-end connections</p>
+      </div>
+    </div>
   </div>
 </body>
 </html>
