@@ -90,6 +90,11 @@ function scrollToBottom() {
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
 
+function formatTimestamp(isoString) {
+    const date = new Date(isoString);
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+}
+
 // ================================
 // SOCKET LOGIC
 // ================================
@@ -161,7 +166,7 @@ socket.on('receiveMessage', (message) => {
     const bubble = document.createElement('div');
     bubble.className = 'message-bubble';
     bubble.innerHTML = `
-        <div class="message-meta">${message.username} • ${message.timestamp}</div>
+        <div class="message-meta">${message.username} • ${formatTimestamp(message.timestamp)}</div>
         <div class="message-content">${message.message}</div>
     `;
 
@@ -174,7 +179,7 @@ socket.on('receiveMessage', (message) => {
 socket.on('systemMessage', (message) => {
     const el = document.createElement('div');
     el.className = 'system-message';
-    el.textContent = message.text;
+    el.textContent = `${message.text} (${formatTimestamp(message.timestamp)})`;
     messagesList.appendChild(el);
     scrollToBottom();
 });
@@ -306,7 +311,7 @@ socket.on('receiveVoiceMessage', (msg) => {
     bubble.className = 'message-bubble';
 
     const voiceHtml = `
-        <div class="message-meta">${msg.username} • ${msg.timestamp}</div>
+        <div class="message-meta">${msg.username} • ${formatTimestamp(msg.timestamp)}</div>
         <div class="message-content">
             <div class="voice-message">
                 <button class="voice-playback-btn">▶️</button>

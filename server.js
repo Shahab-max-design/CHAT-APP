@@ -122,7 +122,7 @@ io.on('connection', (socket) => {
             // Notify others in old room
             socket.to(user.room).emit('systemMessage', {
                 text: `${user.username} left ${user.room}`,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             });
             socket.to(user.room).emit('updateUsers', getUsersInRoom(user.room));
             socket.to(user.room).emit('roomCounts', getRoomCounts());
@@ -135,7 +135,7 @@ io.on('connection', (socket) => {
         // Notify others in new room
         socket.to(roomName).emit('systemMessage', {
             text: `${user.username} joined ${roomName}`,
-            timestamp: new Date().toLocaleTimeString()
+            timestamp: new Date().toISOString()
         });
 
         // Send updated users list to the room
@@ -159,7 +159,7 @@ io.on('connection', (socket) => {
                 userId: user.id,
                 username: user.username,
                 message: messageText,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             };
 
             // Broadcast the message to the room
@@ -190,7 +190,7 @@ io.on('connection', (socket) => {
                 audioData: voiceData.audioData, // Base64 encoded audio
                 duration: voiceData.duration || 0,
                 mimeType: voiceData.mimeType,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             };
 
             // Broadcast the voice message to the room
@@ -208,7 +208,7 @@ io.on('connection', (socket) => {
             // Broadcast that user has left
             io.to(user.room).emit('systemMessage', {
                 text: `${user.username} left ${user.room}`,
-                timestamp: new Date().toLocaleTimeString()
+                timestamp: new Date().toISOString()
             });
 
             // Send updated users list to the room
