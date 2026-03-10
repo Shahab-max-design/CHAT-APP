@@ -48,10 +48,11 @@
             </div>
 
             <!-- Messages Container -->
-            <div class="messages-container">
+            <div class="messages-container" id="messages-container">
                 <div id="messages" class="messages">
                     <!-- System and user messages appear here -->
                 </div>
+                <!-- Typing Indicator moved inside scroll area for better flow -->
                 <div id="typing-indicator" class="typing-indicator"></div>
             </div>
 
@@ -73,6 +74,8 @@
                 <!-- Voice Recording Indicator -->
                 <div id="recording-indicator" class="recording-indicator hidden">
                     <div class="recording-waveform">
+                        <div class="wave"></div>
+                        <div class="wave"></div>
                         <div class="wave"></div>
                         <div class="wave"></div>
                         <div class="wave"></div>
