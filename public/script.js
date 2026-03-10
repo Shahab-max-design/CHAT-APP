@@ -11,6 +11,12 @@ const usersList = document.getElementById('users-list');
 const currentRoomHeader = document.getElementById('current-room');
 const themeToggle = document.getElementById('theme-toggle');
 
+// Mobile Menu Elements
+const menuToggle = document.getElementById('menu-toggle');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+const closeSidebar = document.getElementById('close-sidebar');
+
 // Extract username from URL query parameters
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get('username');
@@ -44,6 +50,26 @@ themeToggle.addEventListener('click', () => {
 });
 
 initializeTheme();
+
+// ================================
+// MOBILE NAVIGATION
+// ================================
+
+function toggleSidebar(show) {
+    sidebar.classList.toggle('active', show);
+    sidebarOverlay.classList.toggle('active', show);
+}
+
+menuToggle.addEventListener('click', () => toggleSidebar(true));
+closeSidebar.addEventListener('click', () => toggleSidebar(false));
+sidebarOverlay.addEventListener('click', () => toggleSidebar(false));
+
+// Close sidebar on room select (mobile)
+function handleMobileRoomSelect() {
+    if (window.innerWidth <= 768) {
+        toggleSidebar(false);
+    }
+}
 
 // ================================
 // UTILITIES
@@ -89,7 +115,10 @@ socket.on('roomInfo', (rooms) => {
         const button = document.createElement('button');
         button.type = 'button';
         button.innerHTML = `<span>${room.name}</span><span class="room-count">${room.count}</span>`;
-        button.addEventListener('click', () => joinRoom(room.name, button));
+        button.addEventListener('click', () => {
+            joinRoom(room.name, button);
+            handleMobileRoomSelect();
+        });
         li.appendChild(button);
         roomsList.appendChild(li);
         if (index === 0 && !currentRoom) joinRoom(room.name, button);
@@ -174,7 +203,16 @@ messageForm.addEventListener('submit', (e) => {
         socket.emit('sendMessage', text, () => {
             messageInput.value = '';
             messageInput.focus();
+            if (window.innerWidth <= 768) {
+                setTimeout(scrollToBottom, 100);
+            }
         });
+    }
+});
+
+messageInput.addEventListener('focus', () => {
+    if (window.innerWidth <= 768) {
+        setTimeout(scrollToBottom, 300);
     }
 });
 
@@ -247,6 +285,17 @@ async function sendVoiceMessage() {
 
 voiceBtn.addEventListener('mousedown', startRecording);
 document.addEventListener('mouseup', stopRecording);
+
+// Touch support for mobile voice messaging
+voiceBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startRecording();
+}, { passive: false });
+
+voiceBtn.addEventListener('touchend', (e) => {
+    e.preventDefault();
+    stopRecording();
+}, { passive: false });
 
 socket.on('receiveVoiceMessage', (msg) => {
     const isMy = msg.userId === myId;
